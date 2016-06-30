@@ -1,3 +1,4 @@
+exports.CRON_STRING = "*/30 * * * *"
 exports.MONITOR_LOCATION = [
 	{"path":"/opt", "threshold": 2},
 	{"path":"/home", "threshold": 5},
