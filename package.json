@@ -1,0 +1,12 @@
+{
+  "name": "diskmonitor",
+  "version": "0.0.1",
+  "description": "A diskmonitor with email notifications",
+  "main": "script.js",
+  "dependencies": {
+    "diskspace": "^1.0.3",
+    "ejs": "^2.4.2",
+    "mailgun-js": "^0.7.11",
+    "nodemailer": "^2.4.2"
+  }
+}

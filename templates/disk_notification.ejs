@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <title>Notification Email</title>
+</head>
+<body style="margin: 0;padding: 0;">
+    <table>
+        <tbody>
+            <tr>
+            <td>Hello <%= name %></td>
+            </tr>
+            <tr>
+                <span style="color:#e57373;">Warning: Running Low on disk space</span>
+            </tr>
+            <table>
+                <tr>
+                    <th>Total Space</th>
+                    <th>Free Space</th>
+                </tr>
+                <tr>
+                    <td><%= tspace %> GB</td>
+                    <td><%= fspace %> GB</td>
+                </tr>
+            </table>
+        </tbody>
+    </table>
+</body>
+</html>
