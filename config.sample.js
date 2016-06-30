@@ -1,4 +1,7 @@
-exports.THRESHOLD = 5;
+exports.MONITOR_LOCATION = [
+	{"path":"/opt", "threshold": 2},
+	{"path":"/home", "threshold": 5},
+]
 exports.EMAIL_NOTIFICATION = true;
 exports.EMAIL_SERVER = "mailgun";
 exports.MAILGUN_CONFIG = {

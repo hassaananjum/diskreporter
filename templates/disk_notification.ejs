@@ -13,17 +13,21 @@
             <td>Hello <%= name %></td>
             </tr>
             <tr>
-                <span style="color:#e57373;">Warning: Running Low on disk space</span>
+                <span style="color:#e57373;">Warning: Running Low on disk space in at lease one of the locations</span>
             </tr>
             <table>
                 <tr>
                     <th>Total Space</th>
                     <th>Free Space</th>
                 </tr>
-                <tr>
-                    <td><%= tspace %> GB</td>
-                    <td><%= fspace %> GB</td>
-                </tr>
+                <% for(var i=0; i<status.length; i++) {%>
+                    <tr style="<%= status[i].warning ? 'color: #e57373;' : '' %>">
+                        <td><%= status[i].path %></td>
+                        <td><%= status[i].total %> GB</td>
+                        <td><%= status[i].free %> GB</td>
+                    </tr>
+                <% } %>
+                
             </table>
         </tbody>
     </table>
