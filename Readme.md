@@ -3,6 +3,7 @@ Disk Reporter is a small nodejs utility to monitor disk spaces on servers and se
 
 #setup
 `npm install`
+
 create config.js file from config.sample.js
 
 #run
