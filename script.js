@@ -7,8 +7,7 @@ var _MONITOR_LOCATION  = config.MONITOR_LOCATION;
 var _NOTIFICATION = config.EMAIL_NOTIFICATION;
 var _EMAIL_SERVER = config.EMAIL_SERVER;
 var _SENDER = config.SENDER_NAME+' '+'<'+config.SENDER_EMAIL+'>'
-var _RECIPIENT_NAME = config.RECIPIENT.name;
-var _RECIPIENT_EMAIL = config.RECIPIENT.email;
+var _RECIPIENT = config.RECIPIENT;
 var _CRON_STRING = config.CRON_STRING;
 var s = schedule.scheduleJob(_CRON_STRING, function(){
 	console.log('Checking Disk Space');
@@ -33,27 +32,33 @@ var s = schedule.scheduleJob(_CRON_STRING, function(){
 			console.log(err);
 		}
 		if(_NOTIFICATION && _SHOULD_NOTIFY){
+			var recipient_string = "";
 			console.log(_STORAGE_STATUS);
-			createNotificationMessage(_STORAGE_STATUS, _RECIPIENT_NAME, 'disk_notification').then(function(body){
-				if(_EMAIL_SERVER == 'mailgun'){
-					var mailgun = require('mailgun-js')(config.MAILGUN_CONFIG);
-					var data = {
-						from: _SENDER,
-						to: _RECIPIENT_EMAIL,
-						subject: "Disk Space Notification",
-						html: body
-					};
-					mailgun.messages().send(data, function (error, body) {
-						if(error){
-							console.log(error);
-						}
-						else{
-							console.log(body);
-						}
-					});
-				}
-			}).catch(function(err){
-				console.log(err)
+			async.each(_RECIPIENT, function(recipient, mailCallback){
+				createNotificationMessage(_STORAGE_STATUS, recipient.name, 'disk_notification').then(function(body){
+					console.log('Sending Email to : <'+recipient.name+'>'+recipient.email)
+					if(_EMAIL_SERVER == 'mailgun'){
+						var mailgun = require('mailgun-js')(config.MAILGUN_CONFIG);
+						var data = {
+							from: _SENDER,
+							to: recipient.email,
+							subject: "Disk Space Notification",
+							html: body
+						};
+						mailgun.messages().send(data, function (error, body) {
+							if(error){
+								console.log(error);
+								mailCallback(error);
+							}
+							else{
+								mailCallback();
+								console.log(body);
+							}
+						});
+					}
+				}).catch(function(err){
+					console.log(err)
+				})
 			})
 		}
 	})

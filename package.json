@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "A diskmonitor with email notifications",
   "main": "script.js",
+  "scripts": {
+    "start" : "node script.js"
+  },
   "dependencies": {
     "async": "^1.5.2",
     "diskspace": "^1.0.3",
